@@ -1,5 +1,4 @@
 
-
 const {onRequest} = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 const express = require("express")
@@ -18,6 +17,7 @@ app.get("/", (req, res)=>{
         message:"sucess"
     })
 })
+const port = process.env.PORT || 10000; // Defualt port
 
 app.post("/payment/create",async(req, res)=>{
     const total = parseInt(req.query.total);
@@ -36,6 +36,9 @@ app.post("/payment/create",async(req, res)=>{
        
 
     }
-})
+    })
+    app.listen(port, '0.0.0.0', () => {
+      logger.log(`Server is running on port ${port}`);
+  });
 
 exports.api = onRequest(app)
